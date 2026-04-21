@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avinash Yedururi — Spider-Dev Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #e63946;
+  --darkred: #9b1f2e;
+  --blue: #1d3557;
+  --lightblue: #457b9d;
+  --webgold: #f4c542;
+  --bg: #0a0a14;
+  --card: rgba(20,20,40,0.85);
+  --text: #e8e8f0;
+  --muted: #8888aa;
+  --white: #ffffff;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── CANVAS BEHIND EVERYTHING ── */
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── SPIDER-MAN SVG HERO ── */
+#spiderman-wrap {
+  position: fixed;
+  right: -20px;
+  bottom: 0;
+  width: 340px;
+  height: 500px;
+  z-index: 2;
+  pointer-events: none;
+  animation: spideyBob 4s ease-in-out infinite;
+  transform-origin: top right;
+}
+
+@keyframes spideyBob {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-18px) rotate(2deg); }
+}
+
+/* ── WEB LINE from spidey hand ── */
+#web-line {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  background: rgba(10,10,20,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 2px solid var(--red);
+}
+
+.nav-logo {
+  font-family: 'Bangers', cursive;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(230,57,70,0.5);
+}
+
+.nav-logo span { color: var(--webgold); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--red);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--red); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ── SECTION BASE ── */
+section {
+  position: relative;
+  z-index: 5;
+  padding: 100px 5%;
+}
+
+.section-tag {
+  font-family: 'Bangers', cursive;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  color: var(--webgold);
+  margin-bottom: 0.4rem;
+}
+
+.section-title {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
+.section-title span { color: var(--red); }
+
+.web-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 3rem;
+}
+
+.web-divider::before, .web-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+}
+
+.web-divider-icon { color: var(--red); font-size: 1.4rem; }
+
+/* ══════════════════
+   HERO
+══════════════════ */
+#home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 68px;
+  background: radial-gradient(ellipse 70% 70% at 30% 50%, rgba(155,31,46,0.18) 0%, transparent 65%);
+}
+
+.hero-content { max-width: 650px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(230,57,70,0.12);
+  border: 1px solid rgba(230,57,70,0.35);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s 0.1s both;
+}
+
+.hero-eyebrow::before {
+  content: '🕷';
+  font-size: 14px;
+}
+
+.hero-greeting {
+  font-family: 'Bangers', cursive;
+  font-size: 1.4rem;
+  color: var(--muted);
+  letter-spacing: 3px;
+  animation: fadeUp 0.6s 0.15s both;
+}
+
+.hero-name {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: 3px;
+  color: var(--white);
+  text-shadow: 4px 4px 0 var(--darkred);
+  animation: fadeUp 0.6s 0.2s both;
+}
+
+.hero-name .stroke {
+  -webkit-text-stroke: 2px var(--red);
+  color: transparent;
+}
+
+.hero-role {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: var(--red);
+  letter-spacing: 3px;
+  margin: 0.5rem 0 1.25rem;
+  animation: fadeUp 0.6s 0.25s both;
+}
+
+.hero-desc {
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.3s both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.35s both;
+}
+
+.btn-red {
+  padding: 13px 32px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(230,57,70,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-red:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(230,57,70,0.6);
+}
+
+.btn-ghost {
+  padding: 12px 30px;
+  background: transparent;
+  color: var(--red);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--red);
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-ghost:hover {
+  background: rgba(230,57,70,0.1);
+  transform: translateY(-3px);
+}
+
+/* hero stats */
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 3rem;
+  animation: fadeUp 0.6s 0.4s both;
+}
+
+.h-stat-num {
+  font-family: 'Bangers', cursive;
+  font-size: 2.4rem;
+  color: var(--red);
+  line-height: 1;
+}
+
+.h-stat-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════
+   ABOUT
+══════════════════ */
+#about {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(20,10,30,1) 100%);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--darkred), var(--webgold));
+}
+
+.about-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.about-card p strong { color: var(--red); }
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.as-box {
+  background: rgba(230,57,70,0.07);
+  border: 1px solid rgba(230,57,70,0.18);
+  border-radius: 14px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.as-box:hover {
+  transform: translateY(-4px);
+  border-color: var(--red);
+}
+
+.as-num {
+  font-family: 'Bangers', cursive;
+  font-size: 2.5rem;
+  color: var(--red);
+  line-height: 1;
+  text-shadow: 2px 2px 0 var(--darkred);
+}
+
+.as-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ══════════════════
+   EXPERIENCE
+══════════════════ */
+#experience {
+  background: rgba(10,5,20,0.95);
+}
+
+.timeline { position: relative; padding-left: 2.5rem; }
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 9px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--red), rgba(230,57,70,0.1));
+}
+
+.tl-item { position: relative; margin-bottom: 2.5rem; }
+
+.tl-spider-dot {
+  position: absolute;
+  left: -2.9rem;
+  top: 14px;
+  width: 20px; height: 20px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 14px rgba(230,57,70,0.7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+}
+
+.tl-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.12);
+  border-left: 3px solid var(--red);
+  border-radius: 0 16px 16px 0;
+  padding: 1.75rem 2rem;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.tl-card:hover {
+  border-color: var(--red);
+  transform: translateX(6px);
+  box-shadow: -4px 0 24px rgba(230,57,70,0.2);
+}
+
+.tl-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.tl-company {
+  font-family: 'Bangers', cursive;
+  font-size: 1.3rem;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.tl-role { font-size: 0.78rem; color: var(--red); font-weight: 700; margin-top: 3px; }
+
+.tl-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(230,57,70,0.15);
+  color: var(--red);
+  border: 1px solid rgba(230,57,70,0.3);
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.tl-list { list-style: none; }
+.tl-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.83rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.tl-list li::before { content: '🕸'; font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+
+/* ══════════════════
+   PROJECTS
+══════════════════ */
+#projects {
+  background: linear-gradient(180deg, rgba(10,5,20,0.95) 0%, rgba(20,5,10,1) 100%);
+}
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.proj-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+}
+
+.proj-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(230,57,70,0.06), transparent 60%);
+  pointer-events: none;
+}
+
+.proj-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 50px rgba(230,57,70,0.2);
+  border-color: rgba(230,57,70,0.4);
+}
+
+.proj-top-bar {
+  height: 6px;
+  background: linear-gradient(90deg, var(--red), var(--darkred), var(--webgold));
+}
+
+.proj-body { padding: 1.75rem; }
+
+.proj-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+.proj-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.3rem;
+  color: var(--white);
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.proj-period {
+  display: inline-block;
+  font-size: 0.67rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--webgold);
+  background: rgba(244,197,66,0.1);
+  border: 1px solid rgba(244,197,66,0.25);
+  padding: 3px 12px;
+  border-radius: 100px;
+  margin-bottom: 1.25rem;
+}
+
+.proj-list { list-style: none; }
+.proj-list li {
+  display: flex;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 7px;
+  line-height: 1.55;
+}
+.proj-list li::before { content: '▸'; color: var(--red); flex-shrink: 0; }
+
+/* ══════════════════
+   QA / TESTING
+══════════════════ */
+#testing {
+  background: rgba(10,5,20,0.95);
+}
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.qa-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.25s, border-color 0.25s;
+  text-align: center;
+}
+
+.qa-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--red);
+  box-shadow: 0 8px 30px rgba(230,57,70,0.15);
+}
+
+.qa-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.qa-title { font-family: 'Bangers', cursive; font-size: 1rem; letter-spacing: 1px; color: var(--white); margin-bottom: 0.5rem; }
+.qa-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+/* ══════════════════
+   SKILLS
+══════════════════ */
+#skills {
+  background: linear-gradient(180deg, rgba(20,5,10,1) 0%, var(--bg) 100%);
+}
+
+.skills-web {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-hex {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.12);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-hex::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--webgold));
+}
+
+.skill-hex:hover {
+  transform: translateY(-5px);
+  border-color: rgba(230,57,70,0.4);
+  box-shadow: 0 10px 30px rgba(230,57,70,0.15);
+}
+
+.skill-cat {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-cat::before { content: ''; width: 16px; height: 2px; background: var(--red); border-radius: 2px; }
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.s-tag {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 8px;
+  background: rgba(230,57,70,0.08);
+  border: 1px solid rgba(230,57,70,0.18);
+  color: var(--text);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.s-tag:hover { background: rgba(230,57,70,0.18); border-color: var(--red); color: var(--red); }
+
+/* ══════════════════
+   CERTIFICATIONS
+══════════════════ */
+#certifications { background: rgba(10,5,20,0.95); }
+
+.cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+.cert-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.12);
+  border-radius: 18px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red);
+  box-shadow: 0 10px 30px rgba(230,57,70,0.15);
+}
+
+.cert-badge {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--red), var(--darkred));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.9rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(230,57,70,0.35);
+}
+
+.cert-title { font-family: 'Bangers', cursive; font-size: 1.1rem; letter-spacing: 1px; color: var(--white); }
+.cert-issuer { font-size: 0.75rem; color: var(--red); font-weight: 700; margin-top: 4px; }
+
+/* ══════════════════
+   EDUCATION
+══════════════════ */
+#education { background: var(--bg); }
+
+.edu-card {
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.15);
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  max-width: 700px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.edu-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), var(--webgold), var(--blue));
+}
+
+.edu-card:hover { border-color: var(--red); }
+
+.edu-icon {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--red), var(--darkred));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 24px rgba(230,57,70,0.35);
+}
+
+.edu-degree { font-family: 'Bangers', cursive; font-size: 1.2rem; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
+.edu-school { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+.edu-year {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--webgold);
+  background: rgba(244,197,66,0.1);
+  border: 1px solid rgba(244,197,66,0.25);
+  padding: 4px 14px;
+  border-radius: 100px;
+}
+
+/* ══════════════════
+   CONTACT
+══════════════════ */
+#contact {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(20,5,5,1) 100%);
+  text-align: center;
+}
+
+.contact-inner { max-width: 540px; margin: 0 auto; }
+.contact-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; }
+
+.contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+
+.c-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px;
+  background: var(--card);
+  border: 1px solid rgba(230,57,70,0.12);
+  border-radius: 14px;
+  padding: 16px 24px;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.c-row:hover { border-color: var(--red); transform: translateY(-2px); }
+.c-icon { color: var(--red); font-size: 20px; }
+
+/* ══════════════════
+   FOOTER
+══════════════════ */
+footer {
+  background: #060610;
+  border-top: 2px solid var(--red);
+  text-align: center;
+  padding: 2rem 5%;
+  font-size: 0.8rem;
+  color: var(--muted);
+  position: relative;
+  z-index: 5;
+}
+
+footer span { color: var(--red); font-weight: 700; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── SCROLL WEB INDICATOR ── */
+.scroll-web {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sw-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(230,57,70,0.2);
+  border: 1px solid rgba(230,57,70,0.3);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.sw-dot.active { background: var(--red); transform: scale(1.4); }
+
+/* ── MOBILE ── */
+@media (max-width: 860px) {
+  .about-grid, .proj-grid, .skills-web { grid-template-columns: 1fr; }
+  .qa-grid { grid-template-columns: 1fr 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+  #spiderman-wrap { width: 200px; height: 300px; right: -10px; }
+  .nav-links { display: none; }
+  .hero-stats { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Spider-web background canvas -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Spider-Man SVG Character -->
+<div id="spiderman-wrap">
+<svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg" width="340" height="500">
+  <!-- Web string from hand -->
+  <line id="spidey-web-line" x1="60" y1="120" x2="60" y2="-300" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Body -->
+  <ellipse cx="170" cy="300" rx="55" ry="75" fill="#e63946"/>
+
+  <!-- Blue torso panel -->
+  <ellipse cx="170" cy="295" rx="38" ry="52" fill="#1d3557"/>
+
+  <!-- Spider logo on chest -->
+  <g transform="translate(150,275)">
+    <ellipse cx="20" cy="12" rx="10" ry="6" fill="#1d3557" stroke="#e63946" stroke-width="1"/>
+    <line x1="20" y1="6" x2="10" y2="-4" stroke="#e63946" stroke-width="1.5"/>
+    <line x1="20" y1="6" x2="30" y2="-4" stroke="#e63946" stroke-width="1.5"/>
+    <line x1="10" y1="12" x2="-2" y2="10" stroke="#e63946" stroke-width="1.5"/>
+    <line x1="30" y1="12" x2="42" y2="10" stroke="#e63946" stroke-width="1.5"/>
+    <line x1="10" y1="16" x2="-2" y2="22" stroke="#e63946" stroke-width="1.5"/>
+    <line x1="30" y1="16" x2="42" y2="22" stroke="#e63946" stroke-width="1.5"/>
+  </g>
+
+  <!-- Web lines on red suit -->
+  <g stroke="rgba(0,0,0,0.25)" stroke-width="0.8" fill="none">
+    <path d="M130,230 Q170,210 210,230"/>
+    <path d="M120,250 Q170,225 220,250"/>
+    <path d="M115,270 Q170,240 225,270"/>
+    <path d="M118,290 Q170,260 222,290"/>
+    <path d="M125,310 Q170,285 215,310"/>
+    <path d="M132,330 Q170,310 208,330"/>
+  </g>
+
+  <!-- Head -->
+  <ellipse cx="170" cy="190" rx="46" ry="52" fill="#e63946"/>
+  <!-- Blue face mask -->
+  <ellipse cx="170" cy="195" rx="36" ry="42" fill="#1d3557"/>
+  <!-- Eyes white lenses -->
+  <ellipse cx="152" cy="182" rx="18" ry="13" fill="white" transform="rotate(-15,152,182)"/>
+  <ellipse cx="188" cy="182" rx="18" ry="13" fill="white" transform="rotate(15,188,182)"/>
+  <!-- Eye inner -->
+  <ellipse cx="152" cy="182" rx="12" ry="9" fill="#c8daf0" transform="rotate(-15,152,182)"/>
+  <ellipse cx="188" cy="182" rx="12" ry="9" fill="#c8daf0" transform="rotate(15,188,182)"/>
+  <!-- Eye glint -->
+  <ellipse cx="148" cy="178" rx="4" ry="3" fill="white" opacity="0.7" transform="rotate(-15,148,178)"/>
+  <ellipse cx="184" cy="178" rx="4" ry="3" fill="white" opacity="0.7" transform="rotate(15,184,178)"/>
+  <!-- Web lines on head -->
+  <g stroke="rgba(0,0,0,0.2)" stroke-width="0.8" fill="none">
+    <path d="M130,165 Q170,145 210,165"/>
+    <path d="M124,185 Q170,158 216,185"/>
+    <path d="M128,205 Q170,178 212,205"/>
+    <path d="M138,220 Q170,200 202,220"/>
+  </g>
+
+  <!-- LEFT ARM (shooting web upward) -->
+  <g>
+    <!-- Upper arm -->
+    <path d="M118,255 Q80,200 60,130" stroke="#e63946" stroke-width="22" fill="none" stroke-linecap="round"/>
+    <path d="M118,255 Q80,200 60,130" stroke="#1d3557" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <!-- Forearm -->
+    <path d="M60,130 Q40,100 30,80" stroke="#e63946" stroke-width="18" fill="none" stroke-linecap="round"/>
+    <!-- Hand/fist web shooting -->
+    <circle cx="28" cy="75" r="14" fill="#e63946"/>
+    <circle cx="28" cy="75" r="9" fill="#1d3557"/>
+    <!-- Web shooting fingers -->
+    <line x1="22" y1="65" x2="15" y2="52" stroke="#e63946" stroke-width="5" stroke-linecap="round"/>
+    <line x1="28" y1="63" x2="28" y2="48" stroke="#e63946" stroke-width="5" stroke-linecap="round"/>
+    <line x1="34" y1="65" x2="40" y2="52" stroke="#e63946" stroke-width="5" stroke-linecap="round"/>
+    <!-- Web blast -->
+    <ellipse cx="28" cy="45" rx="6" ry="4" fill="rgba(255,255,255,0.7)">
+      <animate attributeName="ry" values="4;8;4" dur="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.5s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- RIGHT ARM (down/casual) -->
+  <g>
+    <path d="M222,255 Q255,290 270,330" stroke="#e63946" stroke-width="22" fill="none" stroke-linecap="round"/>
+    <path d="M270,330 Q278,355 272,370" stroke="#e63946" stroke-width="18" fill="none" stroke-linecap="round"/>
+    <circle cx="268" cy="378" r="14" fill="#e63946"/>
+  </g>
+
+  <!-- LEGS -->
+  <!-- Left leg -->
+  <path d="M145,370 Q130,420 125,470" stroke="#e63946" stroke-width="28" fill="none" stroke-linecap="round"/>
+  <path d="M125,470 Q122,488 130,495" stroke="#e63946" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <!-- Left boot -->
+  <ellipse cx="128" cy="496" rx="22" ry="10" fill="#1d3557"/>
+
+  <!-- Right leg -->
+  <path d="M195,370 Q210,420 215,470" stroke="#e63946" stroke-width="28" fill="none" stroke-linecap="round"/>
+  <path d="M215,470 Q218,488 210,495" stroke="#e63946" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <!-- Right boot -->
+  <ellipse cx="212" cy="496" rx="22" ry="10" fill="#1d3557"/>
+
+  <!-- Blue shorts/pants detail -->
+  <ellipse cx="170" cy="375" rx="50" ry="18" fill="#1d3557" opacity="0.6"/>
+</svg>
+</div>
+
+<!-- Scroll Nav Dots -->
+<div class="scroll-web" id="scrollDots">
+  <div class="sw-dot active" data-target="home"></div>
+  <div class="sw-dot" data-target="about"></div>
+  <div class="sw-dot" data-target="experience"></div>
+  <div class="sw-dot" data-target="projects"></div>
+  <div class="sw-dot" data-target="testing"></div>
+  <div class="sw-dot" data-target="skills"></div>
+  <div class="sw-dot" data-target="certifications"></div>
+  <div class="sw-dot" data-target="education"></div>
+  <div class="sw-dot" data-target="contact"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Spider<span>Dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#testing">QA</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="home">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Available for Opportunities</div>
+    <div class="hero-greeting">WITH GREAT POWER COMES</div>
+    <h1 class="hero-name">Avinash<br><span class="stroke">Yedururi</span></h1>
+    <div class="hero-role">🕷 Sr. Mendix Developer 🕷</div>
+    <p class="hero-desc">
+      Mendix Developer with <strong style="color:var(--red)">3.7 years</strong> of experience building enterprise web & mobile apps. Expert in GRC platforms, AI integrations, SAP systems, REST APIs — and end-to-end testing.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-red">Hire Me</a>
+      <a href="#projects" class="btn-ghost">View Projects</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="h-stat-num">3.7</div>
+        <div class="h-stat-label">Yrs Experience</div>
+      </div>
+      <div>
+        <div class="h-stat-num">3+</div>
+        <div class="h-stat-label">Projects</div>
+      </div>
+      <div>
+        <div class="h-stat-num">2</div>
+        <div class="h-stat-label">Certifications</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-tag">// Origin Story</div>
+    <h2 class="section-title">About <span>Me</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-card">
+      <p>I'm a <strong>Senior Mendix Developer</strong> with 3.7 years of overall experience, including 3.5 years of dedicated hands-on Mendix development.</p>
+      <p>Experienced in building enterprise web and mobile applications with strong exposure to <strong>GRC platforms, AI-integrated features, SAP integrations, REST APIs</strong>, and Agile delivery.</p>
+      <p>Proficient in <strong>end-to-end testing</strong> of applications, including web and mobile testing, API validation using Swagger, and conducting functional, regression, and UAT testing to ensure high-quality and reliable solutions.</p>
+    </div>
+    <div class="about-stats-grid">
+      <div class="as-box">
+        <div class="as-num">3.7</div>
+        <div class="as-label">Years Experience</div>
+      </div>
+      <div class="as-box">
+        <div class="as-num">3+</div>
+        <div class="as-label">Key Projects</div>
+      </div>
+      <div class="as-box">
+        <div class="as-num">2</div>
+        <div class="as-label">Certifications</div>
+      </div>
+      <div class="as-box">
+        <div class="as-num">2</div>
+        <div class="as-label">Companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="reveal">
+    <div class="section-tag">// My missions</div>
+    <h2 class="section-title">Work <span>Experience</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-spider-dot">🕷</div>
+      <div class="tl-card">
+        <div class="tl-top">
+          <div>
+            <div class="tl-company">Bareez Technology Solutions</div>
+            <div class="tl-role">Senior Mendix Developer</div>
+          </div>
+          <div class="tl-pill">Jul 2025 – Jan 2026</div>
+        </div>
+        <ul class="tl-list">
+          <li>Designed, developed, and maintained enterprise Mendix web and mobile applications.</li>
+          <li>Collaborated with stakeholders to translate business requirements into functional Mendix models.</li>
+          <li>Developed complex microflows, validations, and business logic.</li>
+          <li>Performed performance optimization, debugging, and production issue analysis.</li>
+          <li>Managed deployments across Test, Acceptance, and Production environments.</li>
+          <li>Worked in Agile (Scrum) teams and mentored junior developers.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-spider-dot">🕷</div>
+      <div class="tl-card">
+        <div class="tl-top">
+          <div>
+            <div class="tl-company">Virtusa Consultancy Services · Hyderabad</div>
+            <div class="tl-role">Engineer – Mendix Developer</div>
+          </div>
+          <div class="tl-pill">Jun 2022 – Jul 2025</div>
+        </div>
+        <ul class="tl-list">
+          <li>Developed and maintained Mendix applications for enterprise clients.</li>
+          <li>Collaborated with business analysts to design domain models.</li>
+          <li>Implemented complex microflows, validations, and business logic.</li>
+          <li>Worked on SAP-related applications involving access and system landscape management.</li>
+          <li>Performed unit testing, defect fixing, and supported deployments.</li>
+          <li>Participated in Agile (Scrum) teams and knowledge-sharing sessions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-tag">// Battles Won</div>
+    <h2 class="section-title">Key <span>Projects</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card reveal">
+      <div class="proj-top-bar"></div>
+      <div class="proj-body">
+        <div class="proj-icon">🛡️</div>
+        <div class="proj-title">GRC Platform</div>
+        <div class="proj-period">Oct 2025 – Jan 2026</div>
+        <ul class="proj-list">
+          <li>Integrated AI APIs via REST services within GRC platform.</li>
+          <li>Implemented AI-powered document Q&A feature with contextual responses.</li>
+          <li>Designed microflows to interface with AI services and process outputs.</li>
+          <li>Integrated AI Issue Identification APIs for compliance detection.</li>
+          <li>Mapped AI outputs to domain models and reviewer workflows.</li>
+          <li>Implemented robust error handling, validation, and logging.</li>
+          <li>Designed domain models, associations, and role-based security.</li>
+          <li>Supported UAT, defect fixing, and multi-environment deployments.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-top-bar" style="background:linear-gradient(90deg,#1d3557,#457b9d,#f4c542)"></div>
+      <div class="proj-body">
+        <div class="proj-icon">📱</div>
+        <div class="proj-title">Dubai FTA – Mobile Inspection App</div>
+        <div class="proj-period">Jul 2025 – Oct 2025</div>
+        <ul class="proj-list">
+          <li>Built Mendix native mobile app for field inspections.</li>
+          <li>Integrated SAP to sync inspection data, equipment & master data.</li>
+          <li>Designed REST-based secure data exchange between Mendix and SAP.</li>
+          <li>Implemented error handling and retry mechanisms for failures.</li>
+          <li>Built responsive, user-friendly mobile UI pages.</li>
+          <li>Developed microflows for inspection processing and submission.</li>
+          <li>Supported production deployments and issue resolution.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTING / QA ══ -->
+<section id="testing">
+  <div class="reveal">
+    <div class="section-tag">// Spider-Sense Testing</div>
+    <h2 class="section-title">QA & <span>Testing</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="qa-grid">
+    <div class="qa-card reveal">
+      <div class="qa-icon">🧪</div>
+      <div class="qa-title">Functional Testing</div>
+      <div class="qa-desc">End-to-end functional & regression testing for web and mobile Mendix applications ensuring stability and quality.</div>
+    </div>
+    <div class="qa-card reveal">
+      <div class="qa-icon">🔌</div>
+      <div class="qa-title">API Validation</div>
+      <div class="qa-desc">Validated REST APIs using Swagger including request/response verification, error handling, and data validation.</div>
+    </div>
+    <div class="qa-card reveal">
+      <div class="qa-icon">🔗</div>
+      <div class="qa-title">Integration Testing</div>
+      <div class="qa-desc">Tested integration flows between Mendix, SAP systems, and external APIs to ensure seamless data exchange.</div>
+    </div>
+    <div class="qa-card reveal">
+      <div class="qa-icon">👥</div>
+      <div class="qa-title">UAT Support</div>
+      <div class="qa-desc">Collaborated with business stakeholders during UAT to validate business requirements and workflows.</div>
+    </div>
+    <div class="qa-card reveal">
+      <div class="qa-icon">🐛</div>
+      <div class="qa-title">Defect Tracking</div>
+      <div class="qa-desc">Identified, logged, and tracked defects using JIRA/Excel, ensuring timely resolution before deployment.</div>
+    </div>
+    <div class="qa-card reveal">
+      <div class="qa-icon">⚡</div>
+      <div class="qa-title">Performance Checks</div>
+      <div class="qa-desc">Ensured proper data validation, edge case handling, and performance checks before every deployment.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-tag">// Spider Powers</div>
+    <h2 class="section-title">Technical <span>Skills</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="skills-web">
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Low-Code Platform</div>
+      <div class="skill-tags">
+        <span class="s-tag">Mendix Studio Pro</span>
+        <span class="s-tag">Mendix Cloud</span>
+        <span class="s-tag">Native Mobile</span>
+      </div>
+    </div>
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-tags">
+        <span class="s-tag">Java</span>
+        <span class="s-tag">SQL</span>
+        <span class="s-tag">CSS</span>
+      </div>
+    </div>
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Integrations</div>
+      <div class="skill-tags">
+        <span class="s-tag">REST APIs</span>
+        <span class="s-tag">SAP Integration</span>
+        <span class="s-tag">AI APIs</span>
+        <span class="s-tag">Swagger</span>
+      </div>
+    </div>
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Testing</div>
+      <div class="skill-tags">
+        <span class="s-tag">Functional Testing</span>
+        <span class="s-tag">Regression</span>
+        <span class="s-tag">UAT</span>
+        <span class="s-tag">API Testing</span>
+      </div>
+    </div>
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Tools</div>
+      <div class="skill-tags">
+        <span class="s-tag">JIRA</span>
+        <span class="s-tag">ServiceNow</span>
+        <span class="s-tag">Excel</span>
+      </div>
+    </div>
+    <div class="skill-hex reveal">
+      <div class="skill-cat">Methodology</div>
+      <div class="skill-tags">
+        <span class="s-tag">Agile / Scrum</span>
+        <span class="s-tag">Domain Modeling</span>
+        <span class="s-tag">Microflows</span>
+        <span class="s-tag">GRC Platforms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications">
+  <div class="reveal">
+    <div class="section-tag">// Badges of Honor</div>
+    <h2 class="section-title">Certifi<span>cations</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-badge">🏅</div>
+      <div>
+        <div class="cert-title">Mendix Intermediate Developer</div>
+        <div class="cert-issuer">Mendix / Siemens Certified</div>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-badge">🎖</div>
+      <div>
+        <div class="cert-title">Mendix Rapid Developer</div>
+        <div class="cert-issuer">Mendix / Siemens Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education">
+  <div class="reveal">
+    <div class="section-tag">// Training Ground</div>
+    <h2 class="section-title">Edu<span>cation</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="edu-card reveal">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">B.Tech — Electronics & Communication Engineering</div>
+      <div class="edu-school">QIS College of Engineering and Technology, Ongole</div>
+      <div class="edu-year">2018 – 2022</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-tag">// Send Signal</div>
+    <h2 class="section-title" style="text-align:center">Contact <span>Me</span></h2>
+    <div class="web-divider"><span class="web-divider-icon">🕸</span></div>
+  </div>
+  <div class="contact-inner reveal">
+    <p class="contact-desc">Your friendly neighborhood Mendix developer is ready for new missions. Reach out!</p>
+    <div class="contact-items">
+      <div class="c-row">
+        <span class="c-icon">✉</span>
+        reddyavinash282@gmail.com
+      </div>
+      <div class="c-row">
+        <span class="c-icon">☎</span>
+        +91 81850 90747
+      </div>
+    </div>
+    <a href="mailto:reddyavinash282@gmail.com" class="btn-red">🕷 Send Message</a>
+  </div>
+</section>
+
+<footer>
+  <p>🕷 <span>Avinash Yedururi</span> — Your Friendly Neighborhood Mendix Developer 🕸 © 2025</p>
+</footer>
+
+<script>
+// ════════════════════════════════════
+//  SPIDER-WEB CANVAS BACKGROUND
+// ════════════════════════════════════
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Web nodes
+const NODES = 60;
+const nodes = [];
+const mouse = { x: -9999, y: -9999 };
+
+for (let i = 0; i < NODES; i++) {
+  nodes.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 2 + 1,
+  });
+}
+
+document.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+function drawWeb() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Move nodes
+  nodes.forEach(n => {
+    n.x += n.vx;
+    n.y += n.vy;
+    if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+    // Mouse repulsion
+    const dx = n.x - mouse.x, dy = n.y - mouse.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist < 120) {
+      n.x += (dx / dist) * 1.5;
+      n.y += (dy / dist) * 1.5;
+    }
+  });
+
+  // Draw lines between close nodes
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 160) {
+        const alpha = (1 - dist / 160) * 0.25;
+        ctx.strokeStyle = `rgba(230,57,70,${alpha})`;
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Lines from mouse to nearest nodes
+  nodes.forEach(n => {
+    const dist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+    if (dist < 200) {
+      const alpha = (1 - dist / 200) * 0.5;
+      ctx.strokeStyle = `rgba(244,197,66,${alpha})`;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(mouse.x, mouse.y);
+      ctx.lineTo(n.x, n.y);
+      ctx.stroke();
+    }
+  });
+
+  // Draw nodes
+  nodes.forEach(n => {
+    const dist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+    const glow = dist < 150 ? 'rgba(244,197,66,0.9)' : 'rgba(230,57,70,0.5)';
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawWeb);
+}
+drawWeb();
+
+// ════════════════════════════════════
+//  SHOOTING WEB STRANDS on click
+// ════════════════════════════════════
+const webStrands = [];
+
+document.addEventListener('click', e => {
+  // Spawn 3-5 web strands from Spider-Man hand position
+  const handX = window.innerWidth - 90; // approx right side
+  const handY = 80;
+  const count = 3 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < count; i++) {
+    const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2;
+    const speed = 6 + Math.random() * 8;
+    webStrands.push({
+      x: handX, y: handY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      tx: e.clientX + (Math.random() - 0.5) * 80,
+      ty: e.clientY + (Math.random() - 0.5) * 80,
+      progress: 0,
+      life: 1,
+      hx: handX, hy: handY,
+    });
+  }
+});
+
+// Draw web strands on a separate overlay canvas
+const webCanvas = document.createElement('canvas');
+webCanvas.style.cssText = 'position:fixed;inset:0;z-index:3;pointer-events:none;';
+document.body.appendChild(webCanvas);
+const wCtx = webCanvas.getContext('2d');
+
+function resizeWebCanvas() {
+  webCanvas.width  = window.innerWidth;
+  webCanvas.height = window.innerHeight;
+}
+resizeWebCanvas();
+window.addEventListener('resize', resizeWebCanvas);
+
+function animateWebs() {
+  wCtx.clearRect(0, 0, webCanvas.width, webCanvas.height);
+
+  webStrands.forEach((s, idx) => {
+    s.progress = Math.min(1, s.progress + 0.04);
+    s.life -= 0.008;
+
+    if (s.life <= 0) { webStrands.splice(idx, 1); return; }
+
+    const cx = s.hx + (s.tx - s.hx) * s.progress;
+    const cy = s.hy + (s.ty - s.hy) * s.progress;
+
+    wCtx.save();
+    wCtx.globalAlpha = s.life;
+    wCtx.strokeStyle = `rgba(255,255,255,0.85)`;
+    wCtx.lineWidth = 1.2;
+    wCtx.shadowColor = 'rgba(255,255,255,0.4)';
+    wCtx.shadowBlur = 4;
+    wCtx.beginPath();
+    wCtx.moveTo(s.hx, s.hy);
+
+    // Quadratic curve for natural web droop
+    const midX = (s.hx + cx) / 2 + (Math.random() - 0.5) * 20;
+    const midY = (s.hy + cy) / 2 + 30;
+    wCtx.quadraticCurveTo(midX, midY, cx, cy);
+    wCtx.stroke();
+
+    // Small blob at tip
+    wCtx.fillStyle = 'rgba(255,255,255,0.7)';
+    wCtx.beginPath();
+    wCtx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+    wCtx.fill();
+
+    wCtx.restore();
+  });
+
+  requestAnimationFrame(animateWebs);
+}
+animateWebs();
+
+// ════════════════════════════════════
+//  SCROLL REVEAL
+// ════════════════════════════════════
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => revealObs.observe(el));
+
+// ════════════════════════════════════
+//  NAV DOT SCROLL
+// ════════════════════════════════════
+const dots = document.querySelectorAll('.sw-dot');
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  dots.forEach(d => d.classList.toggle('active', d.dataset.target === current));
+});
+
+// ════════════════════════════════════
+//  SPIDER-MAN click animation
+// ════════════════════════════════════
+const spideyWrap = document.getElementById('spiderman-wrap');
+document.addEventListener('click', () => {
+  spideyWrap.style.transition = 'transform 0.1s';
+  spideyWrap.style.transform = 'translateY(-15px) rotate(-5deg) scale(1.05)';
+  setTimeout(() => {
+    spideyWrap.style.transform = '';
+    setTimeout(() => spideyWrap.style.transition = '', 400);
+  }, 180);
+});
+</script>
+</body>
+</html>
